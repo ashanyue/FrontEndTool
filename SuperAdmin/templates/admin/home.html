@@ -7,7 +7,7 @@
         {% if "SIMPLEUI_HOME_QUICK"|get_config != False%}
 
         {% if "SIMPLEUI_HOME_INFO"|get_config != False %}
-        <el-col :span="18">
+        <el-col :span="24">
             {% else %}
             <el-col :span="24">
                 {% endif %}
@@ -35,30 +35,30 @@
             {% endif %}
 
             {% if "SIMPLEUI_HOME_INFO"|get_config != False %}
-            <el-col :span="6">
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-
-                        <span><i class="fab fa-stripe-s"></i>Simpleui <span
-                                v-text="getLanuage('Home page')"></span></span>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="report()"><span
-                                v-text="getLanuage('Report issue')"></span></el-button>
-                    </div>
-                    <div class="float-wrap clearfix">
-                        <div style="text-align: center">
-                            {% get_app_info %}
-                            <a v-if="upgrade.isUpdate" href="javascript:;" @click="upgrade.dialogVisible=true"
-                               class="upgrade"><span class="el-icon-top"></span><span
-                                    v-text="upgrade.version"></span></a>
-                        </div>
-                        <el-button icon="fas fa-code" @click="openUrl('https://gitee.com/tompeppa/simpleui')">Gitee
-                        </el-button>
-                        <el-button icon="fab fa-github" @click="openUrl('https://github.com/newpanjing/simpleui')">
-                            Github
-                        </el-button>
-                    </div>
-                </el-card>
-            </el-col>
+{#            <el-col :span="6">#}
+{#                <el-card class="box-card">#}
+{#                    <div slot="header" class="clearfix">#}
+{##}
+{#                        <span><i class="fab fa-stripe-s"></i>Simpleui <span#}
+{#                                v-text="getLanuage('Home page')"></span></span>#}
+{#                        <el-button style="float: right; padding: 3px 0" type="text" @click="report()"><span#}
+{#                                v-text="getLanuage('Report issue')"></span></el-button>#}
+{#                    </div>#}
+{#                    <div class="float-wrap clearfix">#}
+{#                        <div style="text-align: center">#}
+{#                            {% get_app_info %}#}
+{#                            <a v-if="upgrade.isUpdate" href="javascript:;" @click="upgrade.dialogVisible=true"#}
+{#                               class="upgrade"><span class="el-icon-top"></span><span#}
+{#                                    v-text="upgrade.version"></span></a>#}
+{#                        </div>#}
+{#                        <el-button icon="fas fa-code" @click="openUrl('https://gitee.com/tompeppa/simpleui')">Gitee#}
+{#                        </el-button>#}
+{#                        <el-button icon="fab fa-github" @click="openUrl('https://github.com/newpanjing/simpleui')">#}
+{#                            Github#}
+{#                        </el-button>#}
+{#                    </div>#}
+{#                </el-card>#}
+{#            </el-col>#}
 
             {% endif %}
     </el-row>
