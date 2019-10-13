@@ -150,7 +150,7 @@ def get_config(key):
 @register.simple_tag
 def get_app_info():
     dict = {
-        'version': simpleui.get_version()
+        'version': "3.1"
     }
 
     return format_table(dict)
@@ -338,7 +338,7 @@ def load_analysis(context):
             "o": platform.platform(),
             "p": platform.python_version(),
             "d": django.get_version(),
-            "s": simpleui.get_version(),
+            "s": "3.1",
         }
         if 'theme_name' in context.request.COOKIES:
             j['t'] = context.request.COOKIES['theme_name']
@@ -444,4 +444,4 @@ def get_tz_suffix():
 
 @register.simple_tag
 def simple_version():
-    return simpleui.get_version()
+    return "3.1"
