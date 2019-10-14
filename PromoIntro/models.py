@@ -1,5 +1,5 @@
 from django.db import models
-from FrontEndTool.BaseModel import BaseModel
+from FrontEndTool.models import BaseModel
 from ckeditor.fields import RichTextField
 
 
