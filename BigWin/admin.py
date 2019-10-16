@@ -32,7 +32,7 @@ class HistoryAdmin(admin.ModelAdmin):
                 '-awardTime')
             print(result)
             for history in result:
-                dataObj['bigWin'][bigWinYear.year].append(history.toJSON())
+                dataObj['bigWin'][bigWinYear.year].append(history.getDict())
 
         xiqiYears = History.objects.raw(
             u"SELECT strftime('%%Y',awardTime) as year,MAX(id) as id FROM bigwin_history WHERE isXiqi=1 GROUP by year ORDER BY year DESC")
@@ -42,7 +42,7 @@ class HistoryAdmin(admin.ModelAdmin):
             result = History.objects.all().filter(awardTime__year=int(xiqiYear.year)).filter(isXiqi=True).order_by(
                 '-awardTime')
             for history in result:
-                dataObj['xiqi'][xiqiYear.year].append(history.toJSON())
+                dataObj['xiqi'][xiqiYear.year].append(history.getDict())
 
         # 计算总获奖金额
 

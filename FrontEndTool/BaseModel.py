@@ -34,6 +34,7 @@ class BaseModel(models.Model):
 
         d = {}
         import datetime
+        import decimal
         for attr in fields:
             if isinstance(getattr(self, attr), datetime.datetime):
                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
@@ -46,6 +47,10 @@ class BaseModel(models.Model):
             elif self.isAttrInstance(attr, int) or self.isAttrInstance(attr, float) \
                     or self.isAttrInstance(attr, str):
                 d[attr] = getattr(self, attr)
+            elif isinstance(getattr(self, attr), decimal.Decimal):
+                d[attr] = float(getattr(self, attr))
+            elif isinstance(getattr(self, attr), models.fields.files.ImageFieldFile):
+                d[attr] = str(getattr(self, attr))
             # else:
             #     d[attr] = getattr(self, attr)
 
