@@ -12,12 +12,13 @@ from django import forms
 # HistroyExport.short_description = "导出数据"
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
-    list_display = ('gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'image_tag')
-    fields = ('gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'banner','image_tag')
+    list_display = (
+        'gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'image_tag')
+    fields = (
+        'gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'banner', 'image_tag')
     search_fields = ('gameName', 'gameID')
-    readonly_fields=('image_tag',)
+    readonly_fields = ('image_tag',)
     actions = ['HistroyExport']
-
 
     def HistroyExport(self, request, queryset):
         # allHistory = History.objects.all().order_by('-awardTime')
@@ -33,7 +34,7 @@ class HistoryAdmin(admin.ModelAdmin):
             dataObj['bigWin'][bigWinYear.year] = []
             result = History.objects.all().filter(awardTime__year=int(bigWinYear.year)).filter(isXiqi=False).order_by(
                 '-awardTime')
-            print(result)
+            # print(result)
             for history in result:
                 dataObj['bigWin'][bigWinYear.year].append(history.getDict())
 
@@ -50,7 +51,7 @@ class HistoryAdmin(admin.ModelAdmin):
         # 计算总获奖金额
 
         total = History.objects.raw('SELECT SUM(awards) as total,MAX(id) as id FROM bigwin_history');
-
+        print(xiqiYears)
         for t in total:
             dataObj['total'] = round(t.total, 2)
 
@@ -64,16 +65,22 @@ class HistoryAdmin(admin.ModelAdmin):
         except:
             compression = zipfile.ZIP_STORED
         f = zipfile.ZipFile('BigWinData.zip', 'w', compression)
+
         startdir = os.path.join(BASE_DIR, 'static/media/')
+        print(startdir)
         allHistory = History.objects.all()
-        for his in allHistory:
-            filename = str(his.banner)
-            f.write(os.path.join(startdir, filename), filename)
+        try:
+            for his in allHistory:
+                filename = str(his.banner)
+                f.write(os.path.join(startdir, filename), filename)
+        except Exception:
+            print(Exception)
         # for dirpath, dirnames, filenames in os.walk(startdir):
         #     for filename in filenames:
         #         f.write(os.path.join(dirpath, filename), 'bigWinImgs/' + filename)
         f.write('BigWinData.json')
         f.close()
+        print(f)
 
         def file_iterator(filename, chunk_size=512):
             with open(filename, 'rb') as f:
@@ -87,7 +94,7 @@ class HistoryAdmin(admin.ModelAdmin):
         response = StreamingHttpResponse(file_iterator('BigWinData.zip'))
         response['Content-Type'] = 'application/octet-stream'
         response['Content-Disposition'] = 'attachment; filename="{}" '.format("BigWinData.zip")
-
+        print(response)
         # 返回zip包
         return response
         # for item in queryset:

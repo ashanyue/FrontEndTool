@@ -22,9 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-                  url(r'^media/bigWinImgs/(?P<path>.*)$', serve,
-                      {'document_root': settings.MEDIA_ROOT + '/bigWinImgs'}),
-                  url(r'^media/promoIntro/(?P<path>.*)$', serve,
-                      {'document_root': settings.MEDIA_ROOT + '/promoIntro'}),
+                  url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+                  url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+                  # url(r'^media/promoIntro/(?P<path>.*)$', serve,
+                  #     {'document_root': settings.MEDIA_ROOT + '/promoIntro'}),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
