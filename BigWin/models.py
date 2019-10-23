@@ -35,3 +35,22 @@ class History(BaseModel):
     isXiqi = models.BooleanField(u'是否红包', default=False)
     name = models.CharField(u'中奖用户名', max_length=20, default='')
     objects = models.Manager()
+
+    def get_banner(self):
+        if self.banner:
+            return self.banner.name
+        else:
+            return ''
+
+    def image_tag(self):
+        from django.utils.html import format_html
+        img_url = self.get_banner()
+        if img_url:
+            return format_html('<img src="{}" width="100"  />'.format(self.banner.url))
+        else:
+            return ""
+        # return '<img src="%s" />' % escape(self.get_banner())
+        # return ""
+
+    image_tag.short_description = 'banner'
+    image_tag.allow_tags = True

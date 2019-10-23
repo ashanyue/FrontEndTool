@@ -9,6 +9,7 @@ class PromoCategory(BaseModel):
 
     name = models.CharField('类别名称', max_length=20)
     code = models.CharField('类别代码', max_length=20)
+
     def __str__(self):
         return self.name
 
@@ -38,3 +39,5 @@ class Promo(BaseModel):
             return self.banner.name
         else:
             return ''
+
+

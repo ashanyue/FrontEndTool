@@ -12,9 +12,12 @@ from django import forms
 # HistroyExport.short_description = "导出数据"
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
-    list_display = ('gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'banner')
+    list_display = ('gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'image_tag')
+    fields = ('gameName', 'gameID', 'name', 'platform', 'bet', 'awards', 'awardTime', 'isXiqi', 'isH5', 'banner','image_tag')
     search_fields = ('gameName', 'gameID')
+    readonly_fields=('image_tag',)
     actions = ['HistroyExport']
+
 
     def HistroyExport(self, request, queryset):
         # allHistory = History.objects.all().order_by('-awardTime')
