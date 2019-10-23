@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'HomeBanner.apps.HomebannerConfig',
     'ckeditor',
     'PromoIntro.apps.PromointroConfig',
     'BigWin.apps.BigwinConfig',

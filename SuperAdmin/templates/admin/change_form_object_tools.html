@@ -1,5 +1,7 @@
+
 {% load i18n admin_urls %}
 {% block object-tools-items %}
+<!--change_form_object_tools.html-->
 <li>
     {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
     <a href="{% add_preserved_filters history_url %}" class="historylink">{% trans "History" %}</a>

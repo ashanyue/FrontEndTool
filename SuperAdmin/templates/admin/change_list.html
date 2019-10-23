@@ -1,7 +1,9 @@
+
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static admin_list %}
 
 {% block extrastyle %}
+<!--change_list.html-->
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}?_=20180905"/>
     {#    <link rel="stylesheet" type="text/css" href="{% static "admin/simpleui/layui/css/layui.css" %}"/>#}
