@@ -54,3 +54,10 @@ class History(BaseModel):
 
     image_tag.short_description = 'banner'
     image_tag.allow_tags = True
+
+
+class Platform(BaseModel):
+    class Meta:
+        db_table = "platform"
+
+    name = models.CharField("平台名称", max_length=255, null=True, blank=True)
