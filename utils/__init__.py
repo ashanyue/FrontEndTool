@@ -2,7 +2,9 @@ from hashlib import md5
 from functools import wraps
 from django.http import JsonResponse
 from django.conf import settings
-import logging, re
+from datetime import datetime, timedelta
+from .errors import errors
+import logging, re, jwt
 
 
 def json_response_format(data=None, status=200, message=None):
@@ -45,7 +47,7 @@ class validator:
             return None
 
 
-def JsonRep(errors=None):
+def json_rep(errors_dict=None):
     def decorator(func):
         @wraps(func)
         def returned_wrapper(request, *args, **kwargs):
@@ -68,8 +70,8 @@ def JsonRep(errors=None):
                     else:
                         error_code = 0
                     logging.debug(error_code)
-                    if errors and str(error_code) in errors.keys():
-                        error_msg = errors[str(error_code)]
+                    if errors_dict and str(error_code) in errors_dict.keys():
+                        error_msg = errors_dict[str(error_code)]
                     else:
                         error_msg = "未知错误"
                 else:
@@ -82,3 +84,44 @@ def JsonRep(errors=None):
         return returned_wrapper
 
     return decorator
+
+
+def login_require():
+    def decorator(func):
+        @wraps(func)
+        def returned_wrapper(request, *args, **kwargs):
+            token = request.META.get('TOKEN')
+            if token is None:
+                token = request.POST.get('TOKEN')
+            if token:
+                try:
+                    user = jwt_decode(token)
+                    return func(request, user, *args, **kwargs)
+                except:
+                    return JsonResponse({'status': 4011, 'message': errors['4011']},json_dumps_params={'ensure_ascii': False}, charset='utf-8')
+            else:
+                return JsonResponse({'status': 4010, 'message': errors['4011']},json_dumps_params={'ensure_ascii': False}, charset='utf-8')
+
+        return returned_wrapper
+
+    return decorator
+
+
+def jwt_encode(data=..., exp=None):
+    if exp is None:
+        exp = {'days': 1}
+    if data:
+        return jwt.encode({
+            'exp': datetime.utcnow() + timedelta(**exp),
+            'iat': datetime.utcnow(),
+            'data': data
+        }, settings.SECRET_KEY, algorithm='HS256').decode('utf-8')
+    else:
+        raise ValueError()
+
+
+def jwt_decode(token):
+    if token and isinstance(token, str):
+        return jwt.decode(token)
+    else:
+        raise ValueError()
