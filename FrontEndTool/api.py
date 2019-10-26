@@ -2,7 +2,7 @@ import re
 
 from django.http import JsonResponse
 
-from .utils import json_response_format
+from utils import json_response_format
 
 
 def index(request):

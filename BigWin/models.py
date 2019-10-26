@@ -1,5 +1,5 @@
 from django.db import models
-from FrontEndTool.models import BaseModel
+from utils.models import BaseModel
 
 
 class History(BaseModel):
@@ -56,8 +56,8 @@ class History(BaseModel):
     image_tag.allow_tags = True
 
 
-class Platform(BaseModel):
-    class Meta:
-        db_table = "platform"
-
-    name = models.CharField("平台名称", max_length=255, null=True, blank=True)
+# class Platform(BaseModel):
+#     class Meta:
+#         db_table = "platform"
+#
+#     name = models.CharField("平台名称", max_length=255, null=True, blank=True)
