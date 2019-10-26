@@ -10,23 +10,21 @@ Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    1. Import the include() function: from django.urls.py import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls.py'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from . import settings
 from django.conf.urls import url
 from django.views.static import serve
-from django.conf.urls.static import static
 from .api import index
-
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('api/', index, name="api"),
-                  # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-                  url(r'^media/bigWinImgs/(?P<path>.*)$', serve,
-                      {'document_root': settings.MEDIA_ROOT + '/bigWinImgs'}),
-                  url(r'^media/promoIntro/(?P<path>.*)$', serve,
-                      {'document_root': settings.MEDIA_ROOT + '/promoIntro'}),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('admin/', admin.site.urls),
+    path('api/', index, name="api"),
+    path('guest/', include('Guests.urls')),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^media/promoIntro/(?P<path>.*)$', serve,
+    #     {'document_root': settings.MEDIA_ROOT + '/promoIntro'}),
+]
