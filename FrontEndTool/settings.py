@@ -21,6 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')+y4$wte-zpngth7_mtdqx@k4_!%i+=jfd2gp4ew1lm2@t+tx('
 
+# Password salt
+PWD_SALT = 'zpngth7_mtdqx'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -134,6 +137,6 @@ MEDIA_ROOT = (
 )
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass

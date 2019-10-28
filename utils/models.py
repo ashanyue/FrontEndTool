@@ -10,9 +10,9 @@ class BaseModel(models.Model):
         abstract = True
 
     # 更新时间
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField('更新时间', auto_now=True)
     # 创建时间
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField('创建时间', auto_now_add=True)
 
     # 返回self._meta.fields中没有的，但是又是需要的字段名的列表
     # 形如['name','type']
