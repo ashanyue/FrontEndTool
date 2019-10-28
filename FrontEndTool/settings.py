@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "SysCore.apps.SyscoreConfig",
     'HomeBanner.apps.HomebannerConfig',
     'ckeditor',
     'PromoIntro.apps.PromointroConfig',
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'FrontEndTool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'front.sqlite3'),
     }
 }
 CKEDITOR_CONFIGS = {

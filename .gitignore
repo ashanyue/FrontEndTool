@@ -103,7 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 /static
-/static的
+/static的副本
 .DS_Store
 /Games
 /Guests

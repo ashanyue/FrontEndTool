@@ -22,7 +22,7 @@ from .api import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', index, name="api"),
-    path('guest/', include('Guests.urls')),
+    # path('guest/', include('Guests.urls')),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     # url(r'^media/promoIntro/(?P<path>.*)$', serve,
