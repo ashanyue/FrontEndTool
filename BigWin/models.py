@@ -22,6 +22,7 @@ class History(BaseModel):
         (17, "MG国际厅"),
         (22, "SW厅"),
         (18, "TTG厅"),
+        (37, "MG亚洲厅"),
     )
 
     gameName = models.CharField(u'游戏名称', max_length=256)
