@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from datetime import datetime, timedelta
 from .errors import errors
+from .exceptionbox import BaseExceptionBox
 import logging, re, jwt
 
 
@@ -98,9 +99,11 @@ def login_require():
                     user = jwt_decode(token)
                     return func(request, user, *args, **kwargs)
                 except:
-                    return JsonResponse({'status': 4011, 'message': errors['4011']},json_dumps_params={'ensure_ascii': False}, charset='utf-8')
+                    return JsonResponse({'status': 4011, 'message': errors['4011']},
+                                        json_dumps_params={'ensure_ascii': False}, charset='utf-8')
             else:
-                return JsonResponse({'status': 4010, 'message': errors['4011']},json_dumps_params={'ensure_ascii': False}, charset='utf-8')
+                return JsonResponse({'status': 4010, 'message': errors['4011']},
+                                    json_dumps_params={'ensure_ascii': False}, charset='utf-8')
 
         return returned_wrapper
 
